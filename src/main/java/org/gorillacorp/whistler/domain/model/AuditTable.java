@@ -15,5 +15,5 @@ public class AuditTable {
     private LocalDate createdAt = LocalDate.now();
 
     @Column(name = "updated_at", nullable = false)
-    private LocalDate updatedAt;
+    private LocalDate updatedAt = LocalDate.now();
 }

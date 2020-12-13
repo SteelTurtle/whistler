@@ -44,4 +44,10 @@ public class User extends AuditTable {
             orphanRemoval = true
     )
     private Set<Whistle> whistles = new HashSet<>();
+
+    public User(final String username) {
+        this.userName = username;
+        this.whistles = new HashSet<>();
+        this.whistlers = new HashSet<>();
+    }
 }
