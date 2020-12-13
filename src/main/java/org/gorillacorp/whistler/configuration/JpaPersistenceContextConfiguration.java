@@ -22,7 +22,7 @@ import static java.util.Objects.requireNonNull;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({"org.gorillacorp.whistler.domain",})
-@PropertySource({"classpath:persistence-${persistenceTarget:postgres}.properties"})
+@PropertySource({"classpath:persistence-${persistenceTarget:h2}.properties"})
 @EnableJpaRepositories(basePackages = {"org.gorillacorp.whistler.domain.repository"})
 @AllArgsConstructor
 public class JpaPersistenceContextConfiguration {

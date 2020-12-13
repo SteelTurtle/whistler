@@ -1,10 +1,7 @@
 package org.gorillacorp.whistler.domain.model;
 
 import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -18,6 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode(of = "id", callSuper = false)
+@ToString(of = {"id", "userName"})
 public class User extends AuditTable {
 
     @Id
