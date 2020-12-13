@@ -2,20 +2,22 @@ package org.gorillacorp.whistler.domain.model;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
 @Table(name = "whistle")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Whistle {
+@Data
+@EqualsAndHashCode(of = "id", callSuper = false)
+public class Whistle extends AuditTable {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -23,11 +25,7 @@ public class Whistle {
     @Column(name = "whistle_id", updatable = false, nullable = false)
     private UUID id;
 
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false)
-    private LocalDate createdAt = LocalDate.now();
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User author;
 

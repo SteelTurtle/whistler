@@ -1,0 +1,36 @@
+version: '3.8'
+
+volumes:
+  api_jar_data:
+    driver: local
+
+services:
+  whistler-db:
+    build:
+      context: .
+      dockerfile: WhistlerDB-Dockerfile
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: whistler_db_service
+      POSTGRES_PASSWORD: Password123.
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "whistler_api_dev", "-U", "whistler_db_service" ]
+      timeout: 20s
+      interval: 5s
+      retries: 3
+
+  whistler:
+    build:
+      context: .
+      dockerfile: Whistler-Dockerfile
+    environment:
+      persistenceTarget: postgres
+      DB_HOST: whistler-db
+    ports:
+      - '9090:9090'
+    volumes:
+      - api_jar_data:/app/
+    depends_on:
+      - whistler-db
+    restart: on-failure

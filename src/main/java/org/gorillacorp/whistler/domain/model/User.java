@@ -2,6 +2,8 @@ package org.gorillacorp.whistler.domain.model;
 
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -11,10 +13,12 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_account")
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+@Data
+@EqualsAndHashCode(of = "id", callSuper = false)
+public class User extends AuditTable {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -23,11 +27,18 @@ public class User {
     private UUID id;
 
     @NotNull
-    @Column(unique = true)
+    @Column(name = "username", unique = true)
     private String userName;
 
-    @ElementCollection
-    private Set<String> followedWhistlers;
+    @JoinTable(name = "relation",
+            joinColumns = {@JoinColumn(name = "follower_id",
+                    referencedColumnName = "user_id",
+                    nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "following_id",
+                    referencedColumnName = "user_id",
+                    nullable = false)})
+    @ManyToMany
+    private Set<User> whistlers;
 
     @OneToMany(
             mappedBy = "author",

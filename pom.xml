@@ -11,7 +11,7 @@
     <groupId>org.gorillacorp</groupId>
     <artifactId>whistler</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>whistler-api</name>
+    <name>whistler</name>
     <description>Whistler - a "poor man" backend for a Twitter-like service</description>
     
     <properties>
