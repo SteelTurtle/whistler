@@ -19,6 +19,11 @@ public class UserService {
                 .orElseThrow(() -> new UnknownUserException("I cannot find any user with username: " + username));
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void saveUser(final User user) {
+        userRepository.save(user);
+    }
+
     @Transactional(readOnly = true)
     public User findByUserId(final Long id) {
         return userRepository.findById(id)
