@@ -4,9 +4,7 @@ import org.gorillacorp.whistler.domain.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUserName(final String username);
+    User findByUserName(final String username);
 }

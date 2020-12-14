@@ -1,4 +1,4 @@
-package org.gorillacorp.whistler.domain.service;
+package org.gorillacorp.whistler.api.exception_handling;
 
 public class WhistleNotFoundException extends RuntimeException {
     public WhistleNotFoundException(String errorMessage) {

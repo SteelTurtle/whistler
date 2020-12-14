@@ -5,6 +5,8 @@ import org.gorillacorp.whistler.domain.model.User;
 import org.gorillacorp.whistler.domain.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Scheduler;
 
 @Service
 @Transactional
@@ -12,21 +14,23 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final Scheduler scheduler;
 
     @Transactional(readOnly = true)
-    public User findByUsername(final String username) {
-        return userRepository.findByUserName(username)
-                .orElseThrow(() -> new UnknownUserException("I cannot find any user with username: " + username));
+    public Mono<User> findByUsername(final String username) {
+        return Mono.fromCallable(() -> userRepository.findByUserName(username)).publishOn(scheduler);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void saveUser(final User user) {
-        userRepository.save(user);
+    public Mono<User> saveUser(final User user) {
+        return Mono.fromCallable(() -> userRepository.save(user)).publishOn(scheduler);
     }
 
     @Transactional(readOnly = true)
-    public User findByUserId(final Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new UnknownUserException("I cannot find any user with id: " + id));
+    public Mono<User> findByUserId(final Long id) {
+        return Mono.fromCallable(() -> userRepository
+                .findById(id)
+                .orElse(new User("unknown_user"))
+        ).publishOn(scheduler);
     }
 }

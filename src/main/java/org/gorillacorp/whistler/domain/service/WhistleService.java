@@ -7,6 +7,8 @@ import org.gorillacorp.whistler.domain.repository.WhistleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Scheduler;
 
 @Service
 @Transactional
@@ -14,32 +16,27 @@ import reactor.core.publisher.Flux;
 public class WhistleService {
 
     private final WhistleRepository whistleRepository;
+    private final Scheduler scheduler;
 
     @Transactional(readOnly = true)
     public Flux<Whistle> findAllByAuthor(final User user) {
-        return Flux.fromIterable(
-                whistleRepository.findAllByAuthor(user)
-                        .orElseThrow(() -> new WhistleNotFoundException("Could not retrieve whistles for " +
-                                "user" + user.getUserName()))
-        );
+        return Flux.fromIterable(whistleRepository.findAllByAuthor(user)).publishOn(scheduler);
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void saveWhistle(final Whistle whistle) {
-        whistleRepository.save(whistle);
+    public Mono<Whistle> saveWhistle(final Whistle whistle) {
+        return Mono.fromCallable(() -> whistleRepository.save(whistle)).publishOn(scheduler);
     }
 
     @Transactional(readOnly = true)
     public Flux<Whistle> findTaggedWhistles(final String username) {
-        return Flux.fromIterable(
-                whistleRepository.findByAuthor_UserNameOrWhistleContains(username, "@" + username)
-                        .orElseThrow(() -> new WhistleNotFoundException("Could not retrieve whistles " +
-                                "tagging user: " + username))
-        );
+        return Flux.fromIterable(whistleRepository
+                .findByAuthor_UserNameOrWhistleContains(username, "@" + username))
+                .publishOn(scheduler);
     }
 
     @Transactional(readOnly = true)
     public Flux<Whistle> findAllWhistles() {
-        return Flux.fromIterable(whistleRepository.findAll());
+        return Flux.fromIterable(whistleRepository.findAll()).publishOn(scheduler);
     }
 }

@@ -14,8 +14,11 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import reactor.core.scheduler.Scheduler;
+import reactor.core.scheduler.Schedulers;
 
 import java.util.Properties;
+import java.util.concurrent.Executors;
 
 import static java.util.Objects.requireNonNull;
 
@@ -26,6 +29,13 @@ import static java.util.Objects.requireNonNull;
 @EnableJpaRepositories(basePackages = {"org.gorillacorp.whistler.domain.repository"})
 @AllArgsConstructor
 public class JpaPersistenceContextConfiguration {
+
+    @Bean
+    public Scheduler scheduler() {
+        return Schedulers.fromExecutor(
+                Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors())
+        );
+    }
 
     private final Environment environment;
 

@@ -21,6 +21,7 @@ public class WhistlerApiIntegrationTest {
     @DisplayName("Users can create and save their own whistles in the DB")
     void usersCanSaveTheirOwnWhistles() {
         var user = userRepository.save(new User("dummy_user1"));
+
         assertNotNull(user);
     }
 }

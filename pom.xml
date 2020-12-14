@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.gorillacorp</groupId>
     <artifactId>whistler</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>2020.12</version>
     <name>whistler</name>
     <description>Whistler - a "poor man" backend for a Twitter-like service</description>
     
@@ -85,6 +85,13 @@
     </dependencies>
     
     <build>
+        <finalName>whistler</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
