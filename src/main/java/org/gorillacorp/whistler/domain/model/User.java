@@ -36,7 +36,7 @@ public class User extends AuditTable {
                     referencedColumnName = "user_id",
                     nullable = false)})
     @ManyToMany
-    private Set<User> whistlers;
+    private Set<User> connectedWhistlers;
 
     @OneToMany(
             mappedBy = "author",
@@ -48,6 +48,6 @@ public class User extends AuditTable {
     public User(final String username) {
         this.userName = username;
         this.whistles = new HashSet<>();
-        this.whistlers = new HashSet<>();
+        this.connectedWhistlers = new HashSet<>();
     }
 }
