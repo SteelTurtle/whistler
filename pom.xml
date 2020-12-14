@@ -17,6 +17,7 @@
     <properties>
         <java.version>15</java.version>
         <mapstruct.version>1.4.1.Final</mapstruct.version>
+        <guava.version>30.0-jre</guava.version>
     </properties>
     
     <dependencies>
@@ -27,6 +28,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+        <!-- Google guava utils  -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
         <!-- JPA validation -->
         <dependency>
