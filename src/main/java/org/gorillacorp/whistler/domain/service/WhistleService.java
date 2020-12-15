@@ -35,6 +35,7 @@ public class WhistleService {
                 .publishOn(scheduler);
     }
 
+    // unused service method for this implementation:
     @Transactional(readOnly = true)
     public Flux<Whistle> findAllWhistles() {
         return Flux.fromIterable(whistleRepository.findAll()).publishOn(scheduler);

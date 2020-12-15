@@ -21,12 +21,12 @@ public class UserService {
         return Mono.fromCallable(() -> userRepository.findByUserName(username)).publishOn(scheduler);
     }
 
+    // unused service methods for this implementation:
     @Transactional(rollbackFor = Exception.class)
     public Mono<User> saveUser(final User user) {
         return Mono.fromCallable(() -> userRepository.save(user)).publishOn(scheduler);
     }
 
-    // unused for this implementation
     @Transactional(readOnly = true)
     public Mono<User> findByUserId(final Long id) {
         return Mono.fromCallable(() -> userRepository

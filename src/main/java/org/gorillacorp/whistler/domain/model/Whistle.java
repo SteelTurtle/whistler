@@ -24,10 +24,16 @@ public class Whistle extends AuditTable {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User author;
 
     @NotNull
     @Size(min = 2, max = 200)
     private String whistle;
+
+    public Whistle(final User author,
+                   @Size(min = 2, max = 200) final String whistle) {
+        this.author = author;
+        this.whistle = whistle;
+    }
 }

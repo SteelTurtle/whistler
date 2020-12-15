@@ -1,6 +1,8 @@
 package org.gorillacorp.whistler.api.v1;
 
 import lombok.AllArgsConstructor;
+import org.gorillacorp.whistler.api.dto.WhistleDto;
+import org.gorillacorp.whistler.api.dto.WhistleMapper;
 import org.gorillacorp.whistler.domain.model.User;
 import org.gorillacorp.whistler.domain.model.Whistle;
 import org.gorillacorp.whistler.domain.service.UserService;
@@ -27,7 +29,15 @@ public class WhistleController {
     }
 
     @GetMapping("/{username}")
-    public Flux<Whistle> getAll(@PathVariable("username") String username) {
-        return whistleService.findTaggedWhistles(username);
+    public Flux<WhistleDto> getAll(@PathVariable("username") String username) {
+        return whistleService.findTaggedWhistles(username).map(this::convertEntityToDto);
+    }
+
+    protected WhistleDto convertEntityToDto(Whistle whistle) {
+        return WhistleMapper.instance.whistleToWhistleDto(whistle);
+    }
+
+    protected Whistle convertDtoToEntity(WhistleDto dto) {
+        return WhistleMapper.instance.whistleDtoToWhistle(dto);
     }
 }

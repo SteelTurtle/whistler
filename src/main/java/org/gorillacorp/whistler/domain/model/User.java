@@ -46,7 +46,7 @@ public class User extends AuditTable {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private Set<Whistle> whistles = new HashSet<>();
+    private Set<Whistle> whistles;
 
     public User(final String username) {
         this.userName = username;
