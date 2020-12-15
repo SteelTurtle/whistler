@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/whistles")
 @AllArgsConstructor
@@ -19,12 +21,12 @@ public class WhistleController {
     private final UserService userService;
 
     @PostMapping("/{username}")
-    public Mono<Whistle> save(@PathVariable("username") String username,
-                              @RequestBody Whistle whistle) {
+    public Mono<WhistleDto> save(@PathVariable("username") String username,
+                                 @RequestBody @Valid Whistle whistle) {
         Mono<User> user = userService.findByUsername(username);
         return user.flatMap(whistler -> {
             whistle.setAuthor(whistler);
-            return whistleService.saveWhistle(whistle);
+            return whistleService.saveWhistle(whistle).map(this::convertEntityToDto);
         });
     }
 
@@ -37,6 +39,7 @@ public class WhistleController {
         return WhistleMapper.instance.whistleToWhistleDto(whistle);
     }
 
+    // unused for this implementation
     protected Whistle convertDtoToEntity(WhistleDto dto) {
         return WhistleMapper.instance.whistleDtoToWhistle(dto);
     }

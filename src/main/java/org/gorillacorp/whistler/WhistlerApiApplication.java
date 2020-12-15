@@ -17,5 +17,4 @@ public class WhistlerApiApplication {
         val springApp = new SpringApplication(configurationClasses);
         springApp.run(args);
     }
-
 }
