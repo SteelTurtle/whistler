@@ -36,7 +36,10 @@ public class User extends AuditTable {
                     referencedColumnName = "user_id",
                     nullable = false)})
     @ManyToMany
-    private Set<User> connectedWhistlers;
+    private Set<User> following;
+
+    @ManyToMany(mappedBy = "following")
+    private Set<User> followers;
 
     @OneToMany(
             mappedBy = "author",
@@ -48,6 +51,12 @@ public class User extends AuditTable {
     public User(final String username) {
         this.userName = username;
         this.whistles = new HashSet<>();
-        this.connectedWhistlers = new HashSet<>();
+        this.following = new HashSet<>();
+        this.followers = new HashSet<>();
+    }
+
+    public void addFollowing(final User followed) {
+        this.getFollowing().add(followed);
+        followed.getFollowers().add(this);
     }
 }
