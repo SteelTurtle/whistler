@@ -21,8 +21,8 @@ public class WhistleController {
     private final UserService userService;
 
     @PostMapping("/{username}")
-    public Mono<WhistleDto> save(@PathVariable("username") String username,
-                                 @RequestBody @Valid Whistle whistle) {
+    public Mono<WhistleDto> save(@PathVariable("username") final String username,
+                                 @RequestBody @Valid final Whistle whistle) {
         Mono<User> user = userService.findByUsername(username);
         return user.flatMap(whistler -> {
             whistle.setAuthor(whistler);
@@ -31,7 +31,7 @@ public class WhistleController {
     }
 
     @GetMapping("/{username}")
-    public Flux<WhistleDto> getAll(@PathVariable("username") String username) {
+    public Flux<WhistleDto> getAll(@PathVariable("username") final String username) {
         return whistleService.findTaggedWhistles(username).map(this::convertEntityToDto);
     }
 

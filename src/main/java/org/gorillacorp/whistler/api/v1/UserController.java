@@ -18,7 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{username}")
-    public Mono<UserDto> getUserByUserName(@PathVariable("username") String username) {
+    public Mono<UserDto> getUserByUserName(@PathVariable("username") final String username) {
         return userService.findByUsername(username).map(this::convertEntityToDto);
     }
 
@@ -26,6 +26,7 @@ public class UserController {
         return UserMapper.instance.userToUserDto(user);
     }
 
+    // unused for this implementation
     protected User convertDtoToEntity(UserDto dto) {
         return UserMapper.instance.userDtoToUser(dto);
     }
