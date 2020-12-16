@@ -5,7 +5,6 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.UUID;
 
 @Entity
@@ -28,11 +27,10 @@ public class Whistle extends AuditTable {
     private User author;
 
     @NotNull
-    @Size(min = 2, max = 200)
     private String whistle;
 
     public Whistle(final User author,
-                   @Size(min = 2, max = 200) final String whistle) {
+                   final String whistle) {
         this.author = author;
         this.whistle = whistle;
     }

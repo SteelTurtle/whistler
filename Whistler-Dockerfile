@@ -2,4 +2,4 @@ FROM openjdk:15-alpine
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} /app/api.jar
 WORKDIR /app
-ENTRYPOINT ["java","-jar","--enable-preview","-noverify","-XX:+AlwaysPreTouch","-Dserver.port=9090", "whistler.jar"]
+ENTRYPOINT ["java","-jar","--enable-preview","-noverify","-XX:+AlwaysPreTouch","-Dserver.port=9090", "api.jar"]
