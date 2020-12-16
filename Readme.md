@@ -54,7 +54,7 @@ installation of
 the three main OSs; from the root directory of the repository just run:
 
 ```sh
-docker-compose up -d --build
+$> docker-compose up -d --build
 ```
 
 _Notice that the before running the whistler API container, you must have run the preceding Maven command to
@@ -63,19 +63,98 @@ generated `whistler.jar` file in the `target/` directory upon execution._
 
 ## Usage example
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and
-potentially more screenshots.
+The examples below refer to the use of the command line tool `HTTPie` (https://httpie.io/)
+to interact with the server API. Of course any CLI utility like `curl`
+will work just fine. Once the server is started, its minimal REST API can be used to execute the following
+operations:
 
-_For more examples and usage, please refer to the [Wiki][wiki]._
-
-## Development setup
-
-Describe how to install all development dependencies and how to run an automated test-suite of some kind.
-Potentially do this for multiple platforms.
+**Get a specific user:**
 
 ```sh
-make install
-npm test
+http GET localhost:9090/users/<USERNAME>
+```
+
+The output should be similar to the one below:
+
+```sh
+HTTP/1.1 200 OK
+Content-Length: 81
+Content-Type: application/json
+
+{
+    "id": "d5b288fd-7d52-4b76-aa1d-7c3bb4e6ecf8",
+    "userName": "dummy_user1"
+}
+```
+
+**Create a new user:**
+
+```sh
+echo '{"userName": "A_NEW_USER"}' | http POST localhost:9090/users
+```
+
+The output should be similar to the one below:
+
+```sh
+HTTP/1.1 200 OK
+Content-Length: 81
+Content-Type: application/json
+
+{
+    "id": "91e616f2-a6e8-4488-8856-99f0b354f51e",
+    "userName": "SomeNewUser"
+}
+```
+
+**Get whistles from a users OR whistles in which the user has been tagged with `@username`**
+Let's use `dummy_user1` as an example:
+
+```sh
+http GET localhost:9090/whistles/dummy_user1
+```
+
+The output should be similar to the one below:
+
+```sh
+HTTP/1.1 200 OK
+Content-Type: application/json
+transfer-encoding: chunked
+
+[
+    {
+        "id": "fcc76f55-0190-4eaa-81b7-a1597c68673b",
+        "whistle": "@dummy_user1 balalalalala"
+    },
+    {
+        "id": "b86fb1a5-e739-49f5-bf8d-63b737e3d157",
+        "whistle": "From dummy_user_2: Hi @dummy_user1!"
+    },
+    {
+        "id": "6e85399d-627b-42d4-b8e3-f12f6fd38506",
+        "whistle": "From dummy_user3: @dummy_user1 lorem ipsum"
+    }
+]
+```
+
+**Create a whistle for a specific user**
+
+In this example, we are using `dummy_user1` as reference:
+
+```sh
+echo '{"whistle": "lorem ipsum"}' | http POST localhost:9090/whistles/dummy_user1
+```
+
+The output should be similar to the one below:
+
+```sh
+HTTP/1.1 200 OK
+Content-Length: 80
+Content-Type: application/json
+
+{
+    "id": "2a06e411-aada-43a2-a7b7-0e5067baf54f",
+    "whistle": "lorem ipsum"
+}
 ```
 
 ## Release History
@@ -91,15 +170,12 @@ Distributed under the XYZ license. See ``LICENSE`` for more information.
 
 [https://github.com/yourname/github-link](https://github.com/dbader/)
 
-## Contributing
+## Meta
 
-1. Fork it (<https://github.com/yourname/yourproject/fork>)
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
+Author – [DannyBoy](https://www.linkedin.com/in/dannyboy/) – Feel free to get in touch!
 
-<!-- Markdown link & img dfn's -->
+This repository is freely redistributable and not subject to any license.
+
 
 [java-image]: https://img.shields.io/static/v1?label=Java&message=15&color=blue&style=flat-square
 
