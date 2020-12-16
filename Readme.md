@@ -48,8 +48,8 @@ service platform by running the following command from the repository folder roo
 $> mvn clean install
 ```
 
-Another prerequisite, in case you want to run the Whistler service on containers, is to have a working
-installation of
+Another prerequisite, in case you want to run the Whistler service on containers and with **PostgresSQL** as
+database server instead of the Spring Boot in-memory **H2** database, is to have a working installation of
 [Docker][Docker] and [docker-compose][docker-compose]. The process to start Whistler is identical for any of
 the three main OSs; from the root directory of the repository just run:
 
