@@ -25,7 +25,7 @@ public class User extends AuditTable {
     private UUID id;
 
     @NotNull
-    @Column(name = "username", unique = true)
+    @Column(name = "username", unique = true, nullable = false)
     private String userName;
 
     @JoinTable(name = "relation",
