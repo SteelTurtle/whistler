@@ -5,10 +5,7 @@ import org.gorillacorp.whistler.api.dto.UserDto;
 import org.gorillacorp.whistler.api.dto.UserMapper;
 import org.gorillacorp.whistler.domain.model.User;
 import org.gorillacorp.whistler.domain.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -20,6 +17,13 @@ public class UserController {
     @GetMapping("/{username}")
     public Mono<UserDto> getUserByUserName(@PathVariable("username") final String username) {
         return userService.findByUsername(username).map(this::convertEntityToDto);
+    }
+
+    @PostMapping
+    public Mono<UserDto> createNewUser(@RequestBody final UserDto userDto) {
+        return userService.saveUser(new User(userDto.getUserName()))
+                .flatMap(whistler ->
+                        userService.findByUsername(whistler.getUserName()).map(this::convertEntityToDto));
     }
 
     protected UserDto convertEntityToDto(User user) {
