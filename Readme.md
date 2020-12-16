@@ -26,7 +26,7 @@ unimplemented:
 - Extensive unit and integration testing
 
 The following picture shows the main data model of the service and the relations of the various data entities:
-![](header.png)
+![](whistler_db_0.1.png)
 
 ## Installation and environment setup
 
