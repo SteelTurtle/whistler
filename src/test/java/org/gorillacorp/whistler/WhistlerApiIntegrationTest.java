@@ -2,7 +2,6 @@ package org.gorillacorp.whistler;
 
 import org.gorillacorp.whistler.domain.model.User;
 import org.gorillacorp.whistler.domain.repository.UserRepository;
-import org.gorillacorp.whistler.domain.repository.WhistleRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class WhistlerApiIntegrationTest {
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private WhistleRepository whistleRepository;
 
     @Test
     @DisplayName("Users can create and save their own whistles in the DB")
