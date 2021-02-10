@@ -1,4 +1,4 @@
-package org.gorillacorp.whistler;
+package org.gorillacorp.whistler.cucumber;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.gorillacorp.whistler.domain.model.User;

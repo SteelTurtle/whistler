@@ -1,5 +1,6 @@
 Feature: Retrieving system users by their username
 
+  @get_user
   Scenario: A client makes a request to the API to get a known user
     When the client calls the /users endpoint looking for an existing user
     Then the client gets a HTTP 200 code as response

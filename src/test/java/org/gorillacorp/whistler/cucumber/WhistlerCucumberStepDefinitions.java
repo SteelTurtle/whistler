@@ -1,16 +1,14 @@
-package org.gorillacorp.whistler;
+package org.gorillacorp.whistler.cucumber;
 
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @AllArgsConstructor
-@SpringBootTest
 public class WhistlerCucumberStepDefinitions {
 
     private final CucumberTestClient cucumberTestClient;

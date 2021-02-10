@@ -1,4 +1,4 @@
-package org.gorillacorp.whistler;
+package org.gorillacorp.whistler.cucumber;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;

@@ -13,13 +13,13 @@
     <version>2020.12</version>
     <name>whistler</name>
     <description>Whistler - a "poor man" backend for a Twitter-like service</description>
-    
+
     <properties>
         <java.version>15</java.version>
         <mapstruct.version>1.4.1.Final</mapstruct.version>
         <guava.version>30.0-jre</guava.version>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -101,7 +101,7 @@
             <version>6.9.1</version>
         </dependency>
     </dependencies>
-    
+
     <build>
         <finalName>whistler</finalName>
         <resources>
@@ -133,10 +133,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>**/*IntegrationTest.java</exclude>
-                        <exclude>**/*E2ETest.java</exclude>
-                    </excludes>
                     <argLine>--enable-preview</argLine>
                 </configuration>
             </plugin>
