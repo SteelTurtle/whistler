@@ -158,11 +158,22 @@ Content-Type: application/json
 }
 ```
 
+## Integration testing with Cucumber platform
+
+Whistler has a basic configuration to integrate with the BDD platform [Cucumber]. All the features defining
+the testing scenarios are located under the `test/resources/features` folder; this is the location where the
+Spring Cucumber plugin will normally look for any `.feature` file serving as template for the "step
+definitions" of your test scenarios.
+
+If you are using `IntelliJ` as your main IDE, you can easily auto-generate the step definition classes for
+each feature file thanks to the bundled plugin of the IDE. Please refer to the Cucumber website for more
+information and alternative ways to run the test scenarios.
+
 ## Release History
 
 * 0.0.1
     * Work in progress
-    
+
 ## Meta
 
 Author – [DannyBoy](https://www.linkedin.com/in/dannyboy/) – Feel free to get in touch!
@@ -172,7 +183,7 @@ This repository is freely redistributable and not subject to any license.
 
 [java-image]: https://img.shields.io/static/v1?label=Java&message=15&color=blue&style=flat-square
 
-[spring-image]: https://img.shields.io/static/v1?label=Spring%20Boot&message=v2.4.1&color=green&style=flat-square
+[spring-image]: https://img.shields.io/static/v1?label=Spring%20Boot&message=v2.4.2&color=green&style=flat-square
 
 [Docker]: https://docs.docker.com/engine/install/
 
@@ -181,3 +192,5 @@ This repository is freely redistributable and not subject to any license.
 [OpenJDK]: https://openjdk.java.net/
 
 [Maven]: https://maven.apache.org/
+
+[Cucumber]: https://cucumber.io/
