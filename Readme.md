@@ -37,7 +37,8 @@ following dependencies:
 
 1. A Java SDK (version: 15 or newer). Any open source JDK, like [OpenJDK] will work.
 2. If you are running or building the code without the support of an IDE (like IntelliJ, Eclipse, NetBeans),
-   you will need the latest version of the [Maven] build tool (version 3.6.3 or newer)
+   you can either install the latest version of the [Maven] build tool (version 3.6.3 or newer) or launch the
+   Maven wrapper as show in the next section:
 
 #### Build process
 
@@ -45,7 +46,7 @@ Assuming the development environment was set correctly, you can invoke the compl
 service platform by running the following command from the repository folder root:
 
 ```sh
-$> mvn clean install
+$> ./mvnw clean install
 ```
 
 Another prerequisite, in case you want to run the Whistler service on containers and with **PostgresSQL** as

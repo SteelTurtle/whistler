@@ -1,6 +1,7 @@
 package org.gorillacorp.whistler.cucumber;
 
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lombok.AllArgsConstructor;
@@ -16,19 +17,36 @@ public class WhistlerCucumberStepDefinitions {
 
     @When("the client calls the \\/users endpoint looking for an existing user")
     public void theClientCallsTheUsersEndpointLookingForAnExistingUser() {
-        assert(cucumberTestClient.httpGetUserAsEntity("dummy_user1") != null);
+        assert (cucumberTestClient.httpGetUserAsEntity(TEST_USER) != null);
     }
 
     @Then("the client gets a HTTP 200 code as response")
     public void theClientGetsAHTTP200CodeAsResponse() {
-        cucumberTestClient.httpGetStatusCodeIs200("dummy_user1", 200);
+        cucumberTestClient.httpGetStatusCodeIs200(TEST_USER, 200);
     }
 
     @And("the client gets a JSON payload with the requested user information")
     public void theClientGetsAJSONPayloadWithTheRequestedUserInformation() {
-        var retrievedUser = cucumberTestClient.httpGetUserAsEntity("dummy_user1");
-        assertEquals(retrievedUser.getUserName(), "dummy_user1");
+        var retrievedUser = cucumberTestClient.httpGetUserAsEntity(TEST_USER);
+        assertEquals(retrievedUser.getUserName(), TEST_USER);
         assertNotNull(retrievedUser.getId());
-        cucumberTestClient.httpGetUserAsJson("dummy_user1");
+        cucumberTestClient.httpGetUserAsJson(TEST_USER);
+    }
+
+    @Given("a valid JSON payload")
+    public void aValidJSONPayload() {
+    }
+
+    @When("the client send a POST request to the \\/user endpoint")
+    public void theClientSendAPOSTRequestToTheUserEndpoint() {
+    }
+
+    @Then("a new user is created on the system")
+    public void aNewUserIsCreatedOnTheSystem() {
+        cucumberTestClient.httpPostNewUser();
+    }
+
+    @And("the response contains a HTTP 200 code and a JSON payload containing the new user")
+    public void theResponseContainsAHTTPCodeAndAJSONPayloadContainingTheNewUser() {
     }
 }
